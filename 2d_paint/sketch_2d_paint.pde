@@ -59,6 +59,8 @@ void draw() {
   fill(0,0,0,0);
   stroke(0);
   circle(mouseX, mouseY, s);
+  stroke(255);
+  circle(mouseX, mouseY, s - 1);
   stroke(0);
   strokeWeight(10);
   fill(255);
@@ -97,27 +99,27 @@ void draw() {
 }
 
 void keyPressed() {
-  if (keyCode == 40) select += 1;
-  if (keyCode == 38) select -= 1;
-  if (keyCode == 39){
+  if (keyCode == 83) select += 1;
+  if (keyCode == 87) select -= 1;
+  if (keyCode == 68){
     if(select == 0) ++r;
     if(select == 1) ++g;
     if(select == 2) ++b;
     if(select == 3) ++s;
   }
-  if (keyCode == 37){
+  if (keyCode == 65){
     if(select == 0) --r;
     if(select == 1) --g;
     if(select == 2) --b;
     if(select == 3) --s;
   }
-  if (keyCode == 68){
+  if (keyCode == 39){
     if(select == 0) r += 51;
     if(select == 1) g += 51;
     if(select == 2) b += 51;
     if(select == 3) s += 20;
   }
-  if (keyCode == 65){
+  if (keyCode == 37){
     if(select == 0) r -= 51;
     if(select == 1) g -= 51;
     if(select == 2) b-= 51;
