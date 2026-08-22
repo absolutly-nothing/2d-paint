@@ -26,7 +26,7 @@ void setup() {
 void draw() {
   int highestIndex = 0;
   background(255);
-  for (int i = 0; i < min(paintx.length, painty.length) -  1; i++) {
+  for (int i = 0; i < min(paintx.length, painty.length) - 1; i++) {
     stroke(Rp[i], Gp[i], Bp[i]);
     fill(Rp[i], Gp[i], Bp[i]);
     strokeWeight(0);
@@ -44,6 +44,7 @@ void draw() {
     inv[highestIndex] = 255;
   }
   // every time you click new arrays are made
+  //nigga
   if (mousePressed) {
     paintx = (float[]) append(paintx, mouseX);
     painty = (float[]) append(painty, mouseY);
@@ -110,7 +111,20 @@ void keyPressed() {
     if(select == 2) --b;
     if(select == 3) --s;
   }
+  if (keyCode == 68){
+    if(select == 0) r += 51;
+    if(select == 1) g += 51;
+    if(select == 2) b += 51;
+    if(select == 3) s += 20;
+  }
+  if (keyCode == 65){
+    if(select == 0) r -= 51;
+    if(select == 1) g -= 51;
+    if(select == 2) b-= 51;
+    if(select == 3) s -= 20;
+  }
 }
+
 
 void mouseReleased() {
   noLine = false;
