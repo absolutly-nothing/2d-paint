@@ -9,6 +9,7 @@ int b;
 int s = 100;
 int select;
 boolean noLine = false;
+boolean Draw = true;
 
 void setup() {
   fullScreen();
@@ -17,10 +18,23 @@ void setup() {
 
 void draw() {
   if(s < 1) s = 1;
+  if (select > 3) select = 3;
+  if (select < 0) select = 0;
+  if(r < 0) r = 0;
+  if(g < 0) g = 0;
+  if(b < 0) b = 0;
+  if(s < 1) s = 1;
+  if(r > 255) r = 255;
+  if(g > 255) g = 255;
+  if(b > 255) b = 255;
+  if(s > 100) s = 100;
+  if(mouseY < 150) Draw = false;
+  else Draw = true;
   strokeWeight(s);
   if(noLine) inv = 255;
   if(!noLine) inv = 0;
   if (mousePressed) {
+    if(Draw){
     fill(r, g, b);
     stroke(r, g, b, inv);
     line1X = mouseX;
@@ -33,6 +47,7 @@ void draw() {
     line2Y = mouseY;
     line2X = mouseX;
     noLine = true;
+    }
   }
   strokeWeight(1);
   fill(0,0,0,0);
@@ -61,16 +76,6 @@ void draw() {
   fill(r, g, b);
   stroke(r, g, b);
   circle(171, 76, s);
-  if (select > 3) select = 3;
-  if (select < 0) select = 0;
-  if(r < 0) r = 0;
-  if(g < 0) g = 0;
-  if(b < 0) b = 0;
-  if(s < 1) s = 1;
-  if(r > 255) r = 255;
-  if(g > 255) g = 255;
-  if(b > 255) b = 255;
-  if(s > 100) s = 100;
 }
 
 void keyPressed() {
