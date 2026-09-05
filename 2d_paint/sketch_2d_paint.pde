@@ -1,10 +1,8 @@
-float [] paintx; //<>//
-float [] painty;
-float [] inv;
-float [] Sp;
-float [] Rp;
-float [] Gp;
-float [] Bp;
+float line1X; //<>//
+float line2X;
+float line1Y;
+float line2Y;
+float inv;
 int r;
 int g;
 int b;
@@ -14,53 +12,30 @@ boolean noLine = false;
 
 void setup() {
   fullScreen();
-  paintx = new float [0];
-  painty = new float [0];
-  Sp = new float [0];
-  Rp = new float [0];
-  Gp = new float [0];
-  Bp = new float [0];
-  inv = new float [0];
+  background(255);
 }
 
 void draw() {
-  int highestIndex = 0;
-  background(255);
-  for (int i = 0; i < min(paintx.length, painty.length) - 1; i++) {
-    stroke(Rp[i], Gp[i], Bp[i]);
-    fill(Rp[i], Gp[i], Bp[i]);
-    strokeWeight(0);
-    circle(paintx[i], painty[i], Sp[i]);
-    strokeWeight(Sp[i]);
-    stroke(Rp[i], Gp[i], Bp[i], inv[i]);
-    line(paintx[i], painty[i], paintx[i + 1], painty[i + 1]);
-  }
-  for (int i = 1; i < inv.length; i++) {
-    if (i > highestIndex) {
-      highestIndex = i;
-    }
-  }
-  if (noLine) {
-    inv[highestIndex] = 255;
-  }
-  // every time you click new arrays are made
-  //nigga
+  if(s < 1) s = 1;
+  strokeWeight(s);
+  if(noLine) inv = 255;
+  if(!noLine) inv = 0;
   if (mousePressed) {
-    paintx = (float[]) append(paintx, mouseX);
-    painty = (float[]) append(painty, mouseY);
-    Sp = (float[]) append(Sp, s);
-    Rp = (float[]) append(Rp, r);
-    Gp = (float[]) append(Gp, g);
-    Bp = (float[]) append(Bp, b);
-    inv = (float[]) append(inv, 0);
+    fill(r, g, b);
+    stroke(r, g, b, inv);
+    line1X = mouseX;
+    line1Y = mouseY;
+    strokeWeight(s);
+    line(line1X, line1Y, line2X, line2Y);
+    strokeWeight(0);
+    circle(mouseX, mouseY,s);
+    strokeWeight(s);
+    line2Y = mouseY;
+    line2X = mouseX;
     noLine = true;
   }
   strokeWeight(1);
   fill(0,0,0,0);
-  stroke(0);
-  circle(mouseX, mouseY, s);
-  stroke(255);
-  circle(mouseX, mouseY, s - 1);
   stroke(0);
   strokeWeight(10);
   fill(255);
