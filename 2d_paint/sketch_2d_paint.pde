@@ -3,6 +3,10 @@ float line2X;
 float line1Y;
 float line2Y;
 float inv;
+float colorSelect = 1;
+float sizeSelect = 1;
+float [] colorBoxX;
+float [] colorBoxY;
 int r;
 int g;
 int b;
@@ -10,10 +14,13 @@ int s = 100;
 int select;
 boolean noLine = false;
 boolean Draw = true;
+boolean speedUp;
 
 void setup() {
   fullScreen();
   background(255);
+  colorBoxX = new float[10];
+  colorBoxY = new float[10]; 
 }
 
 void draw() {
@@ -30,6 +37,14 @@ void draw() {
   if(s > 100) s = 100;
   if(mouseY < 150) Draw = false;
   else Draw = true;
+  if(speedUp){
+    colorSelect = 51;
+    sizeSelect = 20;
+  }
+  else{
+    colorSelect = 1;
+    sizeSelect = 1;
+  }
   strokeWeight(s);
   if(noLine) inv = 255;
   if(!noLine) inv = 0;
@@ -76,37 +91,39 @@ void draw() {
   fill(r, g, b);
   stroke(r, g, b);
   circle(171, 76, s);
+  for(int i=0; i<min(colorBoxX.length, colorBoxY.length); ++i){
+    fill(255);
+    colorBoxX[i] = i * 25 + 240;
+    colorBoxY[i] = 25.5 + 25;
+    if(i * 25 + 240 > 5 * 25 + 240 - 1){
+      colorBoxX[i] = (i - 5) * 25 + 240;
+      colorBoxY[i] += 25;
+    }
+    square(colorBoxX[i], colorBoxY[i], 25);
+  }
 }
 
 void keyPressed() {
   if (keyCode == 83) select += 1;
   if (keyCode == 87) select -= 1;
   if (keyCode == 68){
-    if(select == 0) ++r;
-    if(select == 1) ++g;
-    if(select == 2) ++b;
-    if(select == 3) ++s;
+    if(select == 0) r += colorSelect;
+    if(select == 1) g += colorSelect;
+    if(select == 2) b += colorSelect;
+    if(select == 3) s += sizeSelect;
   }
   if (keyCode == 65){
-    if(select == 0) --r;
-    if(select == 1) --g;
-    if(select == 2) --b;
-    if(select == 3) --s;
+    if(select == 0) r -= colorSelect;
+    if(select == 1) g -= colorSelect;
+    if(select == 2) b -= colorSelect;
+    if(select == 3) s -= sizeSelect;
   }
-  if (keyCode == 39){
-    if(select == 0) r += 51;
-    if(select == 1) g += 51;
-    if(select == 2) b += 51;
-    if(select == 3) s += 20;
-  }
-  if (keyCode == 37){
-    if(select == 0) r -= 51;
-    if(select == 1) g -= 51;
-    if(select == 2) b-= 51;
-    if(select == 3) s -= 20;
-  }
+  if(keyCode == 16) speedUp = true;
 }
 
+void keyReleased(){
+  if(keyCode == 16) speedUp = false;
+}
 
 void mouseReleased() {
   noLine = false;
