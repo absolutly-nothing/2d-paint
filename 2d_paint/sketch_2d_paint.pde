@@ -93,13 +93,13 @@ void draw() {
   circle(171, 76, s);
   for(int i=0; i<min(colorBoxX.length, colorBoxY.length); ++i){
     fill(255);
-    colorBoxX[i] = i * 25 + 240;
-    colorBoxY[i] = 25.5 + 25;
-    if(i * 25 + 240 > 5 * 25 + 240 - 1){
-      colorBoxX[i] = (i - 5) * 25 + 240;
-      colorBoxY[i] += 25;
+    colorBoxX[i] = i * 51 + 240;
+    colorBoxY[i] = 25;
+    if(i * 51 + 240 > 5 * 51 + 240 - 1){
+      colorBoxX[i] = (i - 5) * 51 + 240;
+      colorBoxY[i] += 51;
     }
-    square(colorBoxX[i], colorBoxY[i], 25);
+    square(colorBoxX[i], colorBoxY[i], 51);
   }
 }
 
