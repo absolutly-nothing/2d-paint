@@ -100,7 +100,16 @@ void draw() {
   square(120, 25, 102);
   fill(r, g, b);
   stroke(r, g, b);
+  if(rainbow){
+    colorMode(HSB, 360, 100, 100);
+    fill(colour, 100, 100);
+  }
+  else{
+    colorMode(RGB, 255, 255, 255);
+    fill(r, g, b);
+  }
   circle(171, 76, s);
+  colorMode(RGB, 255, 255, 255);
   for (int i=0; i<min(colorBoxX.length, colorBoxY.length); ++i) {
     stroke(0);
     if (i == 0) fill(255, 0, 0);
