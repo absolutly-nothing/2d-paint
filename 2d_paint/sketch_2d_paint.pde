@@ -1,4 +1,4 @@
- //random varibles //<>//
+//random varibles //<>//
 float line1X;
 float line2X;
 float line1Y;
@@ -30,11 +30,11 @@ void setup() {
 void draw() {
   //bunch of if statements
   if (s < 1) s = 1; //prevents the size of the brush to get to low
-  
-     //prevents the select bar from going too high or too low
+
+  //prevents the select bar from going too high or too low
   if (select > 3) select = 3;
   if (select < 0) select = 0;
-  
+
   //prevents the rgb for the brush from becoming too low or too high
   if (r < 0) r = 0;
   if (g < 0) g = 0;
@@ -44,11 +44,11 @@ void draw() {
   if (g > 255) g = 255;
   if (b > 255) b = 255;
   if (s > 100) s = 100;
-  
+
   //this makes it so you cant draw on the tool bar
   if (mouseY < 150) Draw = false;
   else Draw = true;
-  
+
   //instead of changing the rgb by 1 you can change it by 51
   if (speedUp) {
     colorSelect = 51;
@@ -57,7 +57,7 @@ void draw() {
     colorSelect = 1;
     sizeSelect = 1;
   }
-  
+
   //makes it so there isint a line connecting all of the cirkle draw. only some are conected
   strokeWeight(s);
   if (noLine) inv = 255;
@@ -65,7 +65,7 @@ void draw() {
   //this is what makes it possible to draw shit
   if (mousePressed) {
     if (Draw) {
-      
+
       //if rainbow = true the brush color becomes rainbow
       if (rainbow) {
         colorMode(HSB, 360, 100, 100);
@@ -90,7 +90,7 @@ void draw() {
       noLine = true;
     }
   }
-  
+
   //this is the ui
   colorMode(RGB, 255, 255, 255);
   strokeWeight(1);
@@ -119,13 +119,12 @@ void draw() {
   square(120, 25, 102);
   fill(r, g, b);
   stroke(r, g, b);
-  
+
   //this is for the colorcubes in the toolbar
-  if(rainbow){
+  if (rainbow) {
     colorMode(HSB, 360, 100, 100);
     fill(colour, 100, 100);
-  }
-  else{
+  } else {
     colorMode(RGB, 255, 255, 255);
     fill(r, g, b);
   }
@@ -155,7 +154,7 @@ void draw() {
   }
 }
 
-  //controlls
+//controlls
 void keyPressed() {
   //this is for changing color and size of the brush
   if (keyCode == 83) select += 1;
@@ -184,4 +183,14 @@ void keyReleased() {
 
 void mouseReleased() {
   noLine = false;
+}
+
+void mousePressed() {
+  //this is to make it so when you click one of the colorboxes, your brush color changes the the respective color
+  if (mouseX > 240 && mouseX < 5 * 51 + 240 && mouseY > 25 && mouseY < 25 + 51 * 2) {
+    color sampled = get(mouseX, mouseY);
+    r = int(red(sampled));
+    g = int(green(sampled));
+    b = int(blue(sampled));
+  }
 }
