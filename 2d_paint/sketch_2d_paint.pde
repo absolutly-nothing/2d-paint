@@ -9,6 +9,7 @@ float sizeSelect = 1;
 float [] colorBoxX;
 float [] colorBoxY;
 float colour;
+float chance;
 int r;
 int g;
 int b;
@@ -18,6 +19,7 @@ boolean noLine = false;
 boolean Draw = true;
 boolean speedUp;
 boolean rainbow = false;
+boolean jumpscare = false;
 
 void setup() {
   fullScreen();
@@ -186,6 +188,10 @@ void mouseReleased() {
 }
 
 void mousePressed() {
+  if(jumpscare){
+    chance = random(100);
+    if(chance < 101) link("https://cdn.discordapp.com/attachments/1535360058139877496/1550851501252018258/want_free_robux_click_me.mp4?ex=6aafd683&is=6aae8503&hm=c2f40d56d08265eadca9a7b92799f5e59f03942fe86a812a9d48f15b3e0413f0&");
+  }
   //this is to make it so when you click one of the colorboxes, your brush color changes the the respective color
   if (mouseX > 240 && mouseX < 5 * 51 + 240 && mouseY > 25 && mouseY < 25 + 51 * 2) {
     color sampled = get(mouseX, mouseY);
