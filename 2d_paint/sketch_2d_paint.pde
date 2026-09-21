@@ -20,6 +20,7 @@ boolean Draw = true;
 boolean speedUp;
 boolean rainbow = false;
 boolean jumpscare = false;
+PImage inspectBox;
 
 void setup() {
   fullScreen();
@@ -27,6 +28,7 @@ void setup() {
   //setup for array
   colorBoxX = new float[10];
   colorBoxY = new float[10];
+  inspectBox = loadImage("inspect_tool.png");
 }
 
 void draw() {
@@ -121,6 +123,8 @@ void draw() {
   square(120, 25, 102);
   fill(r, g, b);
   stroke(r, g, b);
+  square(500, 25, 102);
+  image(inspectBox, 500, 25);
 
   //this is for the colorcubes in the toolbar
   if (rainbow) {
