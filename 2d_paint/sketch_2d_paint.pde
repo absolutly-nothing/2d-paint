@@ -10,6 +10,7 @@ float [] colorBoxX;
 float [] colorBoxY;
 float colour;
 float chance;
+float brushInv;
 int r;
 int g;
 int b;
@@ -125,7 +126,13 @@ void draw() {
   stroke(r, g, b);
   square(500, 25, 102);
   image(inspectBox, 500, 25);
-
+  
+  fill(0,0,0,0);
+  brushInv = 200;
+  stroke(r,g,b,brushInv);
+  circle(mouseX,mouseY,s);
+  brushInv = 0;
+  circle(mouseX,mouseY,s);
   //this is for the colorcubes in the toolbar
   if (rainbow) {
     colorMode(HSB, 360, 100, 100);
