@@ -11,6 +11,7 @@ float [] colorBoxY;
 float colour;
 float chance;
 float brushInv;
+int brushSelect;
 int r;
 int g;
 int b;
@@ -83,16 +84,24 @@ void draw() {
         stroke(r, g, b, inv);
       }
       //this draws a line and a circle
-      line1X = mouseX;
-      line1Y = mouseY;
-      strokeWeight(s);
-      line(line1X, line1Y, line2X, line2Y);
-      strokeWeight(0);
-      circle(mouseX, mouseY, s);
-      strokeWeight(s);
-      line2Y = mouseY;
-      line2X = mouseX;
-      noLine = true;
+      if (brushSelect == 0) {
+        line1X = mouseX;
+        line1Y = mouseY;
+        strokeWeight(s);
+        line(line1X, line1Y, line2X, line2Y);
+        strokeWeight(0);
+        circle(mouseX, mouseY, s);
+        strokeWeight(s);
+        line2Y = mouseY;
+        line2X = mouseX;
+        noLine = true;
+      }
+      if (brushSelect == 1) {
+        color sampled = get(mouseX, mouseY);
+        r = int(red(sampled));
+        g = int(green(sampled));
+        b = int(blue(sampled));
+      }
     }
   }
 
@@ -124,15 +133,15 @@ void draw() {
   square(120, 25, 102);
   fill(r, g, b);
   stroke(r, g, b);
+  stroke(0);
+  if (brushSelect == 1) fill(196);
+  else fill(255);
+  square(602, 25, 102);
+  image(inspectBox, 601, 25);
+  if(brushSelect == 0) fill(196);
+  else fill(255);
   square(500, 25, 102);
-  image(inspectBox, 500, 25);
   
-  fill(0,0,0,0);
-  brushInv = 200;
-  stroke(r,g,b,brushInv);
-  circle(mouseX,mouseY,s);
-  brushInv = 0;
-  circle(mouseX,mouseY,s);
   //this is for the colorcubes in the toolbar
   if (rainbow) {
     colorMode(HSB, 360, 100, 100);
@@ -196,14 +205,17 @@ void keyReleased() {
 
 void mouseReleased() {
   noLine = false;
+  if(brushSelect == 1){
+    if(mouseX > 601 && mouseX < 702 && mouseY > 25 && mouseY < 126){
+    }
+    else brushSelect = 0;
+  }
 }
 
 void mousePressed() {
-  if(jumpscare){
-    chance = random(100);
-    if(chance < 101) link("https://cdn.discordapp.com/attachments/1535360058139877496/1550851501252018258/want_free_robux_click_me.mp4?ex=6aafd683&is=6aae8503&hm=c2f40d56d08265eadca9a7b92799f5e59f03942fe86a812a9d48f15b3e0413f0&");
-  }
   //this is to make it so when you click one of the colorboxes, your brush color changes the the respective color
+  if(mouseX > 500 && mouseX < 602 && mouseY > 25 && mouseY < 126) brushSelect = 0;
+  if(mouseX > 602 && mouseX < 704 && mouseY > 25 && mouseY < 126) brushSelect = 1;
   if (mouseX > 240 && mouseX < 5 * 51 + 240 && mouseY > 25 && mouseY < 25 + 51 * 2) {
     color sampled = get(mouseX, mouseY);
     r = int(red(sampled));
