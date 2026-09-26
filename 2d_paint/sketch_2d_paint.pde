@@ -203,13 +203,14 @@ void draw() {
     }
     square(colorBoxX[i], colorBoxY[i], 51);
   }
-  nothingToSeeHere();
+  whatAreYouLookingAt();
 }
+
+
 
 //controlls
 void keyPressed() {
-  if (keyCode == 51) r3 = true;
-  if (keyCode == 52) r4 = true;
+  weArehidingNothing();
   //this is for changing color and size of the brush
   if (keyCode == 83) select += 1;
   if (keyCode == 87) select -= 1;
@@ -275,6 +276,66 @@ void mousePressed() {
 
 
 
+//where are you going
+
+
+
+
+// theres nothing to see here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// you won't find shit here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//stop it
+
+
+
+
+
+
+
+
+
+
+
+//STOP IT!!!!!!!!!!!
+
+
+void whatAreYouLookingAt() {
+  nothingToSeeHere();
+}
+void weArehidingNothing() {
+  nothing2SeeHere();
+}
 
 
 
@@ -302,6 +363,21 @@ void mousePressed() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+void nothing2SeeHere() {
+  if (keyCode == 51) r3 = true;
+  if (keyCode == 52) r4 = true;
+}
 
 void nothingToSeeHere() {
   if(r3 && r4){
