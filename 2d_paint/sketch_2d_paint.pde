@@ -22,7 +22,11 @@ boolean Draw = true;
 boolean speedUp;
 boolean rainbow = false;
 boolean jumpscare = false;
+boolean r3;
+boolean r4;
 PImage inspectBox;
+PImage Brush;
+PImage erase;
 
 void setup() {
   fullScreen();
@@ -31,6 +35,8 @@ void setup() {
   colorBoxX = new float[10];
   colorBoxY = new float[10];
   inspectBox = loadImage("inspect_tool.png");
+  Brush = loadImage("brush.png");
+  erase = loadImage("eraser.png");
 }
 
 void draw() {
@@ -102,6 +108,20 @@ void draw() {
         g = int(green(sampled));
         b = int(blue(sampled));
       }
+      if (brushSelect == 2) {
+        stroke(255, 255, 255, inv);
+        fill(255, 255, 255, inv);
+        line1X = mouseX;
+        line1Y = mouseY;
+        strokeWeight(s);
+        line(line1X, line1Y, line2X, line2Y);
+        strokeWeight(0);
+        circle(mouseX, mouseY, s);
+        strokeWeight(s);
+        line2Y = mouseY;
+        line2X = mouseX;
+        noLine = true;
+      }
     }
   }
 
@@ -133,15 +153,24 @@ void draw() {
   square(120, 25, 102);
   fill(r, g, b);
   stroke(r, g, b);
+
+  //this is for all of the tool boxes
   stroke(0);
   if (brushSelect == 1) fill(196);
   else fill(255);
   square(602, 25, 102);
-  image(inspectBox, 601, 25);
-  if(brushSelect == 0) fill(196);
+
+  image(inspectBox, 590, 12.5);
+  if (brushSelect == 0) fill(196);
   else fill(255);
   square(500, 25, 102);
-  
+  image(Brush, 500, 25);
+
+  if (brushSelect == 2) fill(196);
+  else fill(255);
+  square(704, 25, 102);
+  image(erase, 704, 25);
+
   //this is for the colorcubes in the toolbar
   if (rainbow) {
     colorMode(HSB, 360, 100, 100);
@@ -174,10 +203,13 @@ void draw() {
     }
     square(colorBoxX[i], colorBoxY[i], 51);
   }
+  nothingToSeeHere();
 }
 
 //controlls
 void keyPressed() {
+  if (keyCode == 51) r3 = true;
+  if (keyCode == 52) r4 = true;
   //this is for changing color and size of the brush
   if (keyCode == 83) select += 1;
   if (keyCode == 87) select -= 1;
@@ -201,25 +233,78 @@ void keyPressed() {
 void keyReleased() {
   if (keyCode == 16) speedUp = false;
   if (keyCode == 17) rainbow = false;
+  //this is for uuhh something
+  if (keyCode == 51) r3 = false;
+  if (keyCode == 52) r4 = false;
 }
 
 void mouseReleased() {
   noLine = false;
-  if(brushSelect == 1){
-    if(mouseX > 601 && mouseX < 702 && mouseY > 25 && mouseY < 126){
-    }
-    else brushSelect = 0;
+  if (brushSelect == 1 && Draw) {
+    if (mouseX > 601 && mouseX < 702 && mouseY > 25 && mouseY < 126) {
+    } else brushSelect = 0;
   }
 }
 
 void mousePressed() {
   //this is to make it so when you click one of the colorboxes, your brush color changes the the respective color
-  if(mouseX > 500 && mouseX < 602 && mouseY > 25 && mouseY < 126) brushSelect = 0;
-  if(mouseX > 602 && mouseX < 704 && mouseY > 25 && mouseY < 126) brushSelect = 1;
+  if (mouseX > 500 && mouseX < 602 && mouseY > 25 && mouseY < 126) brushSelect = 0;
+  if (mouseX > 602 && mouseX < 704 && mouseY > 25 && mouseY < 126) brushSelect = 1;
+  if (mouseX > 704 && mouseX < 806 && mouseY > 25 && mouseY < 126) brushSelect = 2;
   if (mouseX > 240 && mouseX < 5 * 51 + 240 && mouseY > 25 && mouseY < 25 + 51 * 2) {
     color sampled = get(mouseX, mouseY);
     r = int(red(sampled));
     g = int(green(sampled));
     b = int(blue(sampled));
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void nothingToSeeHere() {
+  if(r3 && r4){
+    background(170, 229, 164);
   }
 }
