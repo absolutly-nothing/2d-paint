@@ -15,7 +15,7 @@ int brushSelect;
 int r;
 int g;
 int b;
-int s = 100;
+int s = 50;
 int select;
 boolean noLine = false;
 boolean Draw = true;
