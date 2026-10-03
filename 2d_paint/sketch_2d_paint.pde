@@ -27,6 +27,7 @@ boolean r4;
 PImage inspectBox;
 PImage Brush;
 PImage erase;
+PImage fill;
 
 void setup() {
   fullScreen();
@@ -37,6 +38,7 @@ void setup() {
   inspectBox = loadImage("inspect_tool.png");
   Brush = loadImage("brush.png");
   erase = loadImage("eraser.png");
+  fill = loadImage("fill_bucket.png");
 }
 
 void draw() {
@@ -122,6 +124,7 @@ void draw() {
         line2X = mouseX;
         noLine = true;
       }
+      if(brushSelect == 3) background(r,g ,b);
     }
   }
 
@@ -171,6 +174,11 @@ void draw() {
   square(704, 25, 102);
   image(erase, 704, 25);
 
+  if (brushSelect == 3) fill(196);
+  else fill(255);
+  square(806, 25, 102);
+  image(fill, 806, 25);
+    
   //this is for the colorcubes in the toolbar
   if (rainbow) {
     colorMode(HSB, 360, 100, 100);
@@ -252,6 +260,7 @@ void mousePressed() {
   if (mouseX > 500 && mouseX < 602 && mouseY > 25 && mouseY < 126) brushSelect = 0;
   if (mouseX > 602 && mouseX < 704 && mouseY > 25 && mouseY < 126) brushSelect = 1;
   if (mouseX > 704 && mouseX < 806 && mouseY > 25 && mouseY < 126) brushSelect = 2;
+  if (mouseX > 806 && mouseX < 908 && mouseY > 25 && mouseY < 126) brushSelect = 3;
   if (mouseX > 240 && mouseX < 5 * 51 + 240 && mouseY > 25 && mouseY < 25 + 51 * 2) {
     color sampled = get(mouseX, mouseY);
     r = int(red(sampled));
