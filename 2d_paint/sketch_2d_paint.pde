@@ -28,6 +28,7 @@ PImage inspectBox;
 PImage Brush;
 PImage erase;
 PImage fill;
+PImage lobster;
 
 void setup() {
   fullScreen();
@@ -39,6 +40,7 @@ void setup() {
   Brush = loadImage("brush.png");
   erase = loadImage("eraser.png");
   fill = loadImage("fill_bucket.png");
+  lobster = loadImage("loobster.png");
 }
 
 void draw() {
@@ -212,6 +214,7 @@ void draw() {
     square(colorBoxX[i], colorBoxY[i], 51);
   }
   whatAreYouLookingAt();
+  //if(mousePressed) { image(lobster, (width / 20) * 2, height / 10);}
 }
 
 
