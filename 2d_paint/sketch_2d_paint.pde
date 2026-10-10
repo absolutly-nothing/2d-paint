@@ -48,6 +48,7 @@ void setup() {
   //setup for array
   colorBoxX = new float[10];
   colorBoxY = new float[10];
+  // these are for the pictures
   inspectBox = loadImage("inspect_tool.png");
   Brush = loadImage("brush.png");
   erase = loadImage("eraser.png");
@@ -226,21 +227,23 @@ void draw() {
     }
     square(colorBoxX[i], colorBoxY[i], 51);
   }
-  if(loobster){
-    fill(255);
+  
+  // this all for a fun ester egg
+  if (loobster) {
+    fill(0,0,0,0);
     stroke(0);
-    square(0,0,20);
+    square(0, 0, 20);
   }
-  if(ranom < 10) {
-      blulobster.trigger();
-      loobster_2 = true;
-      lobsterStart = millis();
-      ranom = 101;
-    }
-  if(loobster_2){ 
-  image(lobster, (width / 20) * 2, height / 10);
-  if (millis() - lobsterStart >= 5500) loobster_2 = false;
-}
+  if (ranom < 10) {
+    blulobster.trigger();
+    loobster_2 = true;
+    lobsterStart = millis();
+    ranom = 101;
+  }
+  if (loobster_2) {
+    image(lobster, (width / 20) * 2, height / 10);
+    if (millis() - lobsterStart >= 5500) loobster_2 = false;
+  }
   whatAreYouLookingAt();
 }
 
@@ -264,14 +267,22 @@ void keyPressed() {
     if (select == 2) b -= colorSelect;
     if (select == 3) s -= sizeSelect;
   }
-  if(key == '/'){
-    if(loobster) loobster = false;
+  if (key == '/') {
+    if (loobster) loobster = false;
     else loobster = true;
   }
-  
+
   //tis is for the rainbow and speedup feature
   if (keyCode == 16) speedUp = true;
   if (keyCode == 17) rainbow = true;
+  // press P to save your art (without the toolbar)
+  if (key == 'p' || key == 'P') {
+    PImage art = get(0, 150, width, height - 150);
+    String fileName = "art-" + year() + "-" + month() + "-" + day() + "_" + hour() + "-" + minute() + "-" + second() + ".png";
+    String path = System.getProperty("user.home") + "/Downloads/" + fileName;
+    art.save(path);
+    println("Saved to " + path);
+  }
 }
 
 void keyReleased() {
@@ -292,7 +303,7 @@ void mouseReleased() {
 
 void mousePressed() {
   if (loobster) {
-     ranom = random(100);
+    ranom = random(100);
   }
   //this is to make it so when you click one of the colorboxes, your brush color changes the the respective color
   if (mouseX > 500 && mouseX < 602 && mouseY > 25 && mouseY < 126) brushSelect = 0;
