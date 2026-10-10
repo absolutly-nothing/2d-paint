@@ -1,4 +1,7 @@
-//random varibles //<>//
+import ddf.minim.*; //<>//
+import ddf.minim.analysis.*;
+
+//random varibles
 float line1X;
 float line2X;
 float line1Y;
@@ -11,12 +14,14 @@ float [] colorBoxY;
 float colour;
 float chance;
 float brushInv;
+float ranom = 1000000001;
 int brushSelect;
 int r;
 int g;
 int b;
 int s = 50;
 int select;
+int lobsterStart;
 boolean noLine = false;
 boolean Draw = true;
 boolean speedUp;
@@ -24,13 +29,20 @@ boolean rainbow = false;
 boolean jumpscare = false;
 boolean r3;
 boolean r4;
+boolean loobster = false;
+boolean loobster_2;
 PImage inspectBox;
 PImage Brush;
 PImage erase;
 PImage fill;
 PImage lobster;
 
+Minim minim;
+AudioSample blulobster;
+
 void setup() {
+  minim = new Minim(this);
+  print(ranom + " ");
   fullScreen();
   background(255);
   //setup for array
@@ -41,6 +53,7 @@ void setup() {
   erase = loadImage("eraser.png");
   fill = loadImage("fill_bucket.png");
   lobster = loadImage("loobster.png");
+  blulobster = minim.loadSample("sound.mp3");
 }
 
 void draw() {
@@ -126,7 +139,7 @@ void draw() {
         line2X = mouseX;
         noLine = true;
       }
-      if(brushSelect == 3) background(r,g ,b);
+      if (brushSelect == 3) background(r, g, b);
     }
   }
 
@@ -180,7 +193,7 @@ void draw() {
   else fill(255);
   square(806, 25, 102);
   image(fill, 806, 25);
-    
+
   //this is for the colorcubes in the toolbar
   if (rainbow) {
     colorMode(HSB, 360, 100, 100);
@@ -213,8 +226,22 @@ void draw() {
     }
     square(colorBoxX[i], colorBoxY[i], 51);
   }
+  if(loobster){
+    fill(255);
+    stroke(0);
+    square(0,0,20);
+  }
+  if(ranom < 10) {
+      blulobster.trigger();
+      loobster_2 = true;
+      lobsterStart = millis();
+      ranom = 101;
+    }
+  if(loobster_2){ 
+  image(lobster, (width / 20) * 2, height / 10);
+  if (millis() - lobsterStart >= 5500) loobster_2 = false;
+}
   whatAreYouLookingAt();
-  //if(mousePressed) { image(lobster, (width / 20) * 2, height / 10);}
 }
 
 
@@ -237,6 +264,11 @@ void keyPressed() {
     if (select == 2) b -= colorSelect;
     if (select == 3) s -= sizeSelect;
   }
+  if(key == '/'){
+    if(loobster) loobster = false;
+    else loobster = true;
+  }
+  
   //tis is for the rainbow and speedup feature
   if (keyCode == 16) speedUp = true;
   if (keyCode == 17) rainbow = true;
@@ -259,6 +291,9 @@ void mouseReleased() {
 }
 
 void mousePressed() {
+  if (loobster) {
+     ranom = random(100);
+  }
   //this is to make it so when you click one of the colorboxes, your brush color changes the the respective color
   if (mouseX > 500 && mouseX < 602 && mouseY > 25 && mouseY < 126) brushSelect = 0;
   if (mouseX > 602 && mouseX < 704 && mouseY > 25 && mouseY < 126) brushSelect = 1;
@@ -392,7 +427,7 @@ void nothing2SeeHere() {
 }
 
 void nothingToSeeHere() {
-  if(r3 && r4){
+  if (r3 && r4) {
     background(170, 229, 164);
   }
 }
